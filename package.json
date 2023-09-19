@@ -1,0 +1,24 @@
+{
+  "type": "module",
+  "name": "@arbendium/graphql-utils",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Arbendium",
+  "license": "ISC",
+  "exports": {
+    "./add-resolvers-to-schema": "./add-resolvers-to-schema.js",
+    "./lint-schema-ast": "./lint-schema-ast.js",
+    "./prepare-graphql-document": "./prepare-graphql-document.js"
+  },
+  "scripts": {
+    "lint": "eslint *.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.49.0",
+    "eslint-config-airbnb": "^19.0.4"
+  },
+  "peerDependencies": {
+    "ajv": "^8.12.0",
+    "graphql": "^16.8.1"
+  }
+}
