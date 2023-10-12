@@ -16,7 +16,7 @@ export default function prepareGraphqlDocument({
 	return (variables, context) => execute({
 		schema,
 		document: documentAst,
-		variableValues: variables,
+		variableValues: JSON.parse(JSON.stringify(variables)),
 		contextValue: context
 	})
 		.then(result => {
