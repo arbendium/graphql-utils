@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@arbendium/graphql-utils",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "author": "Arbendium",
   "repository": "github:arbendium/graphql-utils",
