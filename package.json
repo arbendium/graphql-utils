@@ -8,7 +8,6 @@
   "license": "ISC",
   "exports": {
     "./add-resolvers-to-schema": "./add-resolvers-to-schema.js",
-    "./lint-schema-ast": "./lint-schema-ast.js",
     "./prepare-graphql-document": "./prepare-graphql-document.js"
   },
   "scripts": {
