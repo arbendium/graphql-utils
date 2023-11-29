@@ -1,12 +1,12 @@
 import assert from 'assert';
-import { ValidationError } from 'ajv';
 import {
 	defaultFieldResolver,
 	isScalarType,
 	isObjectType,
 	getNamedType,
 	Kind,
-	print
+	print,
+	GraphQLError
 } from 'graphql';
 
 function parseLiteral(typeName, ast, variables) {
@@ -39,11 +39,14 @@ function parseLiteral(typeName, ast, variables) {
 function createValidator(validator, schema) {
 	const validate = validator.compile(schema);
 
-	return value => {
+	return (value, ast) => {
 		if (!validate(value)) {
-			const e = new ValidationError(validate.errors);
-			e.message = 'Type value validation failed';
-			throw e;
+			throw new GraphQLError('Type value validation failed', {
+				extensions: {
+					errors: validate.errors
+				},
+				nodes: ast
+			});
 		}
 
 		return value;
@@ -70,7 +73,10 @@ export default function addResolversToSchema({
 					type.description = `\`\`\`json\n${JSON.stringify(schema, null, 2)}\n\`\`\``;
 					type.serialize = validate;
 					type.parseValue = validate;
-					type.parseLiteral = (ast, variables) => validate(parseLiteral(typeName, ast, variables));
+					type.parseLiteral = (ast, variables) => validate(
+						parseLiteral(typeName, ast, variables),
+						ast
+					);
 				}
 			} else if (isObjectType(type)) {
 				const fields = type.getFields();
